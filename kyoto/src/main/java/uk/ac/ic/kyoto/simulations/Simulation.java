@@ -46,6 +46,8 @@ import com.google.inject.AbstractModule;
 
 public class Simulation extends InjectedSimulation {
 	
+	final private Logger logger = Logger.getLogger(Simulation.class);
+
 	@Parameter(name="GROWTH_MARKET_STATE")
 	public double GROWTH_MARKET_STATE;
 	@Parameter(name="STABLE_MARKET_STATE")
@@ -92,7 +94,6 @@ public class Simulation extends InjectedSimulation {
 	public int MINIMUM_KYOTO_MEMBERSHIP_DURATION;
 	@Parameter(name="TICK_YEAR")
 	public int TICK_YEAR;
-
 		
 	@Override
 	protected Set<AbstractModule> getModules() {
@@ -158,8 +159,6 @@ public class Simulation extends InjectedSimulation {
 	protected void addToScenario(Scenario s) {
 		// TODO Auto-generated method stub
 		
-		//Something new
-		Logger logger = Logger.getLogger(Simulation.class);
 		try{
 			JSONObjectContainer<SimulationData> obj = new DataProvider().getSimulationData(this.simPersist.getID());
 			
