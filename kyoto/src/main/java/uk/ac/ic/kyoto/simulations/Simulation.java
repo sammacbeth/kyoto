@@ -99,6 +99,8 @@ public class Simulation extends InjectedSimulation {
 	public int TICK_YEAR;
 	@Parameter(name="COUNTRIES")
 	public String COUNTRIES = "";
+
+	String countryDataSource = "countrydata.csv";
 		
 	@Override
 	protected Set<AbstractModule> getModules() {
@@ -254,7 +256,7 @@ public class Simulation extends InjectedSimulation {
 
 	}
 
-	private Map<String, CountryData> getCountriesFromCSV()
+	Map<String, CountryData> getCountriesFromCSV()
 			throws NoCountryDataException {
 		Map<String, CountryData> countriesData = new HashMap<String, CountryData>();
 		// get set of ISO codes for countries to include in this simulation.
@@ -267,16 +269,17 @@ public class Simulation extends InjectedSimulation {
 		try {
 			// attempt to load csv county data
 			is = this.getClass().getClassLoader()
-					.getResourceAsStream("countrydata.csv");
+					.getResourceAsStream(this.countryDataSource);
 			isReader = new InputStreamReader(is);
 			countryCsv = new BufferedReader(isReader);
 
 			// discard first line, just headings
 			countryCsv.readLine();
 
-			String line = countryCsv.readLine();
-			;
+			String line = null;
+
 			do {
+				line = countryCsv.readLine();
 				if (line != null) {
 					String[] values = line.split(",");
 					if (values.length != 10) {
@@ -301,7 +304,6 @@ public class Simulation extends InjectedSimulation {
 					c.setCarbonOutput1990(values[9]);
 					countriesData.put(c.getISO(), c);
 				}
-				line = countryCsv.readLine();
 			} while (line != null);
 
 		} catch (IOException e) {
