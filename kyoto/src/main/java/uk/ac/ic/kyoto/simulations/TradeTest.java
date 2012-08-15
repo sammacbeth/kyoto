@@ -19,7 +19,6 @@ import uk.ac.ic.kyoto.services.GlobalTimeService;
 import uk.ac.ic.kyoto.services.ParticipantCarbonReportingService;
 import uk.ac.ic.kyoto.services.ParticipantTimeService;
 import uk.ac.ic.kyoto.services.TradeHistoryService;
-import uk.ac.ic.kyoto.singletonfactory.SingletonProvider;
 import uk.ac.ic.kyoto.trade.TradeProtocolTestAgent;
 import uk.ac.imperial.presage2.core.simulator.InjectedSimulation;
 import uk.ac.imperial.presage2.core.simulator.Scenario;
@@ -80,7 +79,6 @@ public class TradeTest extends InjectedSimulation {
 		}
 		
 		logger.info(this.simPersist.getID());
-		SingletonProvider.getTradeHistory().setSimID(this.simPersist.getID());
 
 	}
 }

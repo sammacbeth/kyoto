@@ -23,28 +23,10 @@
 			<artifactId>presage2-util</artifactId>
 			<version>${presage.version}</version>
 		</dependency>
-		<!-- Uncomment for mongodb storage -->
 		<dependency>
 			<groupId>uk.ac.imperial.presage2</groupId>
-			<artifactId>presage2-mongodb</artifactId>
+			<artifactId>presage2-sqldb</artifactId>
 			<version>${presage.version}</version>
-		</dependency>
-		<!-- Uncomment for mysql storage
-		<dependency>
-			<groupId>uk.ac.imperial.presage2</groupId> 
-			<artifactId>presage2-hibernatedb</artifactId>
-			<version>${presage.version}</version> 
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId> 
-			<version>5.1.6</version>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>2.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
@@ -55,7 +37,7 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.1</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>uk.ac.imperial.presage2</groupId>
 			<artifactId>presage2-webapp</artifactId>
@@ -74,10 +56,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>com.google.guava</groupId>
-		    <artifactId>guava</artifactId>
-		    <version>10.0.1</version>
-		</dependency>	
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>10.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -87,9 +69,9 @@
 			<url>http://dev.presage2.info/nexus/content/groups/public/</url>
 		</repository>
 		<repository>
-		<id>tuprolog</id>
-		<name>tuProlog Release Repo</name>
-		<url>https://oss.sonatype.org/content/repositories/central-sync</url>
+			<id>tuprolog</id>
+			<name>tuProlog Release Repo</name>
+			<url>https://oss.sonatype.org/content/repositories/central-sync</url>
 		</repository>
 	</repositories>
 

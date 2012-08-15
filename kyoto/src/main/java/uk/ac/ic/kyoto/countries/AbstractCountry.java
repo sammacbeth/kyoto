@@ -178,7 +178,7 @@ public abstract class AbstractCountry extends AbstractParticipant {
 			}
 			
 
-			this.tradeProtocol = new TradeProtocol(getID(), this.authkey, environment, network, this) {
+			this.tradeProtocol = new TradeProtocol(getID(), this.authkey, environment, network, this, this) {
 				
 				@Override
 				protected boolean acceptExchange(NetworkAddress from, Offer trade) {

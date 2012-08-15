@@ -35,7 +35,7 @@ import uk.ac.ic.kyoto.services.GlobalTimeService;
 import uk.ac.ic.kyoto.services.ParticipantCarbonReportingService;
 import uk.ac.ic.kyoto.services.ParticipantTimeService;
 import uk.ac.ic.kyoto.services.TradeHistoryService;
-import uk.ac.ic.kyoto.singletonfactory.SingletonProvider;
+import uk.ac.ic.kyoto.singletonfactory.SingletonModule;
 import uk.ac.ic.kyoto.util.sim.jsonobjects.simulations.CountryData;
 import uk.ac.imperial.presage2.core.simulator.InjectedSimulation;
 import uk.ac.imperial.presage2.core.simulator.Parameter;
@@ -146,7 +146,7 @@ public class Simulation extends InjectedSimulation {
 			.addParticipantEnvironmentService(ParticipantTimeService.class)
 			.addParticipantEnvironmentService(Economy.class)
 			.addGlobalEnvironmentService(CarbonTarget.class)
-			.addGlobalEnvironmentService(TradeHistoryService.class)
+			.addParticipantGlobalEnvironmentService(TradeHistoryService.class)
 			);
 	
 		modules.add(new RuleModule());
@@ -154,6 +154,8 @@ public class Simulation extends InjectedSimulation {
 		
 		modules.add(NetworkModule.fullyConnectedNetworkModule().withNodeDiscovery());
 		
+		modules.add(new SingletonModule());
+
 		return modules;
 	}
 
@@ -236,7 +238,7 @@ public class Simulation extends InjectedSimulation {
 											Double.parseDouble(countryData.getEnergyOutput()), 
 											Double.parseDouble(countryData.getCarbonOutput()));	
 					}
-					
+
 					CarbonData1990.addCountry(countries.get(countryKey).getISO(), Double.parseDouble(countries.get(countryKey).getCarbonOutput1990()));
 					
 					if(abstractCountry != null){
@@ -245,14 +247,11 @@ public class Simulation extends InjectedSimulation {
 						s.addParticipant(abstractCountry);
 					}
 				}
-			}		
-		
+			}
+
 		} catch(NoCountryDataException e){
 			logger.warn(e);
 		}
-		
-		SingletonProvider.getTradeHistory().setSimID(this.simPersist.getID());
-	
 
 	}
 

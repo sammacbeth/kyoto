@@ -64,17 +64,5 @@ public interface TradeHistory {
 	 * into the database.
 	 */
 	public void dumpData();
-	
-	/**
-	 * Method must be called when setting up
-	 * the simulation. The simulation id is
-	 * required to store the trade data
-	 * in the dumpData() method.
-	 * 
-	 * In order to store simulation id use the following method
-	 * 
-	 * SingletonProvider.getTradeHistory().setSimID(this.simPersist.getID());
-	 * @param simID
-	 */
-	public void setSimID(Long simID);
+
 }

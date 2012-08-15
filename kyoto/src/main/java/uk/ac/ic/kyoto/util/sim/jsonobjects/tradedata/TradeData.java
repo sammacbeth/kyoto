@@ -10,20 +10,17 @@ import uk.ac.ic.kyoto.countries.OfferMessage;
  */
 public class TradeData {
 	private String tick;
-	private String simID;
 	private TradeObject tradeObject;
 	
 	
-	public TradeData(OfferMessage offerMessage, String simTick, String simID){
+	public TradeData(OfferMessage offerMessage, String simTick){
 		this.tick = simTick;
-		this.simID = simID;
 		this.tradeObject = new TradeObject(offerMessage);
 	}
 	
 	@Override
 	public String toString(){
 		String s = "{";
-		s += " \"simID\" : \"" + this.simID + "\",";
 		s += " \"tick\" : \"" + this.tick + "\",";
 		s += this.tradeObject.toString();
 		s += "}";
@@ -43,20 +40,5 @@ public class TradeData {
 	public void setTime(String tick) {
 		this.tick = tick;
 	}
-
-	/**
-	 * @return the simID
-	 */
-	public String getSimID() {
-		return simID;
-	}
-	/**
-	 * @param simID the simID to set
-	 */
-	public void setSimID(String simID) {
-		this.simID = simID;
-	}
-	
-	
 	
 }

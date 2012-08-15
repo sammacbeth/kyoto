@@ -10,7 +10,7 @@ import uk.ac.ic.kyoto.countries.OfferMessage.OfferMessageType;
 import uk.ac.ic.kyoto.exceptions.NotEnoughCarbonOutputException;
 import uk.ac.ic.kyoto.exceptions.NotEnoughCashException;
 import uk.ac.ic.kyoto.exceptions.NotEnoughLandException;
-import uk.ac.ic.kyoto.singletonfactory.SingletonProvider;
+import uk.ac.ic.kyoto.services.TradeHistoryService;
 import uk.ac.ic.kyoto.tokengen.Token;
 import uk.ac.ic.kyoto.trade.InvestmentType;
 import uk.ac.ic.kyoto.trade.TradeType;
@@ -18,6 +18,8 @@ import uk.ac.ic.kyoto.tradehistory.OfferHistory;
 import uk.ac.ic.kyoto.tradehistory.TradeHistory;
 import uk.ac.imperial.presage2.core.Time;
 import uk.ac.imperial.presage2.core.environment.EnvironmentConnector;
+import uk.ac.imperial.presage2.core.environment.EnvironmentServiceProvider;
+import uk.ac.imperial.presage2.core.environment.UnavailableServiceException;
 import uk.ac.imperial.presage2.core.messaging.Input;
 import uk.ac.imperial.presage2.core.messaging.Performative;
 import uk.ac.imperial.presage2.core.network.Message;
@@ -96,9 +98,11 @@ public abstract class TradeProtocol extends FSMProtocol {
 		RESPONDER_TIME_OUT
 	}
 
-	public TradeProtocol(final UUID id, final UUID authkey, 
-			final EnvironmentConnector environment, NetworkAdaptor network, AbstractCountry participant)
-					throws FSMException {
+	public TradeProtocol(final UUID id, final UUID authkey,
+			final EnvironmentConnector environment, NetworkAdaptor network,
+			AbstractCountry participant,
+			EnvironmentServiceProvider serviceProvider) throws FSMException,
+			UnavailableServiceException {
 		super("Trade Protocol", FSM.description(), network);
 		this.participant = participant;
 		this.id = id;
@@ -108,9 +112,11 @@ public abstract class TradeProtocol extends FSMProtocol {
 
 		logger = Logger.getLogger(TradeProtocol.class.getName() + ", " + id);
 
-		this.tradeToken = SingletonProvider.getToken();
+		TradeHistoryService historyService = serviceProvider
+				.getEnvironmentService(TradeHistoryService.class);
 
-		this.tradeHistory = SingletonProvider.getTradeHistory();
+		this.tradeToken = historyService.getToken();
+		this.tradeHistory = historyService.getTradeHistory();
 
 		try {
 			this.description
